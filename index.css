@@ -1,0 +1,12 @@
+h1 {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: #deb887;
+}
+
+nav a {
+    float: left;
+    margin: 10px;
+}

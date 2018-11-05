@@ -34,6 +34,7 @@
                         <li><a href="signup.html">Sign Up</a></li>
                         <li><a href="login.html">Log In</a></li>
                         <li><a href="display-polls.html">View Polls</a></li>
+                        <li><a href="create-poll.html">Create Poll</a></li>
                     </ul>
                    </div>
             </div>
@@ -41,8 +42,18 @@
     </header>
     
     <form action="">
-        <div class="form-group input-field">
-            <label for="example">Question</label>
+           <div id="qBlock">
+                <div class="form-group input-field">
+                    <label for="question1">Question 1</label>
+                    <input type="text" class="form-control" id="question1text" name="q1text" placeholder="Enter question prompt here">
+                </div>
+            </div>
+        
+        <div>
+            <button type="button" class="btn btn-default" id="tr">Add text response</button>
+            <button type="button" class="btn btn-default" id="ms">Add multiple selection</button>
+            <button type="button" class="btn btn-default" id="ss">Add single selection</button>
+            <button type="submit">Submit</button>
         </div>
     </form>
     

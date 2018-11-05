@@ -3,6 +3,10 @@ h1 {
     margin-left: 15px;
 }
 
+h3 {
+    margin-left: 15px;
+}
+
 body {
     background-color: #deb887;
 }
@@ -23,4 +27,9 @@ form {
 
 .input-field {
     width: 250px;
+}
+
+div[class="radio"] label {
+    padding-right: 25px;
+    
 }

@@ -42,20 +42,35 @@
     </header>
     
     <form action="">
-           <div id="qBlock">
-                <div class="form-group input-field">
-                    <label for="question1">Question 1</label>
-                    <input type="text" class="form-control" id="question1text" name="q1text" placeholder="Enter question prompt here">
-                </div>
+        <div id="qBlock">
+            <div class="form-group input-field">
+                <label for="question1">Question 1</label>
+                <input type="text" class="form-control" id="question1text" name="q1text" placeholder="Enter question prompt here">
             </div>
+        </div>
         
         <div>
             <button type="button" class="btn btn-default" id="tr">Add text response</button>
             <button type="button" class="btn btn-default" id="ms">Add multiple selection</button>
             <button type="button" class="btn btn-default" id="ss">Add single selection</button>
-            <button type="submit">Submit</button>
+            <br> <br>
+            <button type="submit" class="btn btn-default">Submit</button>
         </div>
+        
+        <div>
+            <h4>Select a theme for your survey:</h4>
+            <div class="radio">
+                <label><input type="radio" name="theme" checked>Default</label>
+                <label><input type="radio" name="theme">Light</label>
+                <label><input type="radio" name="theme">Dark</label>
+                <label><input type="radio" name="theme">Forest</label>
+                <label><input type="radio" name="theme">Seaside</label>
+                <label><input type="radio" name="theme">Modern Grey</label>
+            </div>
+        </div>
+    
     </form>
+    
     
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
         crossorigin="anonymous"></script>

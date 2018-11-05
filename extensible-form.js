@@ -1,12 +1,27 @@
 // counter for the number of questions
 // starts at 2 because the first question is added on load
 var questionCounter = 2;
+// count number multiple selections
+var msCounter = 1;
+// count number of single selections
+var ssCounter = 1;
+// count number of subq
 
 // add a text response question
-$("#tr").on("click", function () {
+$("#tr").click(function () {
     //  adds a text response question, gives it an ID that corresponds to the question number
-    $("#qBlock").append(questionTextHTML(questionCounter) + textResponseHTML()); 
+    $("#qBlock").append(questionTextHTML(questionCounter)); 
     questionCounter++;
+});
+
+// add a multiple response question
+$("#ms").click(function() {
+    $("#qBlock").append(questionTextHTML(questionCounter));
+    
+});
+
+$("#ss").click(function() {
+    
 });
 
 // creates HTML for adding question text

@@ -62,3 +62,36 @@ function newAddOptionClickListener(buttonID, questionNumber) {
         optionNum++;
     });
 }
+
+$('input[name="theme"]').click(function () {
+  console.log("ok");
+  themeSelector();
+});
+
+
+function themeSelector() {
+    var selectedTheme = $('input[name=theme]:checked').val();
+    var body = document.querySelector("body");
+    switch (selectedTheme) {
+        case "Light":
+            body.style.backgroundColor = "#dadada";
+            body.style.color = "black";
+            break;
+            
+        case "Dark":
+            body.style.backgroundColor = "#232323";
+            body.style.color = "#777777";
+            break;
+        case "Forest":
+            body.style.backgroundColor = "#498645";
+            body.style.color = "#222222";
+            break;
+        case "Seaside":
+            body.style.backgroundColor = "#2A82ED";
+            body.style.color = "#222222";
+            break;
+        default:
+            body.style.backgroundColor = "#46C6C6";
+            body.style.color = "white;"
+    }
+}

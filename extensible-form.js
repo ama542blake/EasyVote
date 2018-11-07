@@ -16,14 +16,14 @@ $("#tr").click(function () {
 $("#ms").click(function() {
     $("#qBlock").append(questionTextHTML(questionCounter));
     $("#question" + questionCounter).append(addOptionHTML(questionCounter));
-    newMsClickListener("#button" + questionCounter, questionCounter);
+    newAddOptionClickListener("#button" + questionCounter, questionCounter);
     questionCounter++;
 });
 
 $("#ss").click(function() {
     $("#qBlock").append(questionTextHTML(questionCounter));
     $("#question" + questionCounter).append(addOptionHTML(questionCounter));
-    newSsClickListener("#button" + questionCounter, questionCounter);
+    newAddOptionClickListener("#button" + questionCounter, questionCounter);
     questionCounter++;
 });
 
@@ -37,37 +37,28 @@ function questionTextHTML(counter) {
 }
 
 function addOptionHTML(counter) {
-    return '<button type="button" class="btn btn-default" id="button' + counter + '">+</button>';
+    return '<button type="button" class="btn btn-default" id="button' + counter + '">Add Option</button>';
 }
     
-function msHTML(questionNum, optionNum) {
-    return '<label>Option ' + optionNum
-           + '<input type=text class="form-control" '
-           + 'id="question' + questionNum + '-option'+ optionNum
-           + '"></label>';
-}
-
-function ssHTML(questionNum, optionNum) {
+// TODO: determine how to identify each option textBox based on question type for submission to the database b
+// creates the input boxes for options of multiple and single selection questions
+// questionNum: used by the input box ID field
+// optionNum: used by the input box ID field
+function optionInputHTML(questionNum, optionNum) {
     return '<label>Option ' + optionNum
            + '<input type=text class="form-control option-input" '
            + 'id="question' + questionNum + '-option'+ optionNum
            + '"></label>';
 }
 
-function newMsClickListener(buttonID, counter) {
-    qCountButtonTracker[counter] = counter;
+// adds click listeners to the "Add Option" button
+// buttonID: ID of the button to attact the function to
+// questionNumber: question that the button is attached to
+function newAddOptionClickListener(buttonID, questionNumber) {
+    qCountButtonTracker[questionNumber] = questionNumber;
     var optionNum = 1;
     $(buttonID).click(function () {
-        $("#question" + qCountButtonTracker[counter]).append(msHTML(qCountButtonTracker[counter], optionNum));
-        optionNum++;
-    });
-}
-    
-function newSsClickListener(buttonID, counter) {
-    qCountButtonTracker[counter] = counter;
-    var optionNum = 1;
-    $(buttonID).click(function () {
-        $("#question" + qCountButtonTracker[counter]).append(ssHTML(qCountButtonTracker[counter], optionNum));
+        $("#question" + qCountButtonTracker[questionNumber]).append(optionInputHTML(qCountButtonTracker[questionNumber], optionNum));
         optionNum++;
     });
 }

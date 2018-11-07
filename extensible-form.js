@@ -10,22 +10,29 @@ $("#tr").click(function () {
     questionCounter++;
 });
 
+/* ISSUE: callback works for each button, but they can't store the question number they are created for. 
+   The reason this is a problem is that we need to add input fields for the correct question, which requires
+   a reference to the div with the id "question#" where # is the question number. Without this, we don't know where to
+   add the HTML for the new inputs, and we also can't create the proper ID for each input, since the ID for each input
+   requires the question number and option number (see the msHTML method for ID declarations that depend
+   on the question and option number). 
+   WHAT NEEDS TO BE DONE: (1) Find a way to store the question number and (2) option number for each individual callback method so
+   that each individual instance of a button doesn't reference a static variable. 
+   POSSIBLE SOLUTIONS
+        FOR (1), since the ID of each button contains the question number '<button id="button"' + counter + '"...', we could
+        parse the string to retrieve it, but this seems very convoluted and inefficient. It also doesn't provide any insight 
+        on how to solve (2), and it would be ideal to solve both problems by just storing a unique value for each
+        callback.
+*/
 // add a multiple response question
 $("#ms").click(function() {
-<<<<<<< HEAD
     $("#qBlock").append(questionTextHTML(questionCounter) + addOptionHTML(questionCounter));
-    // create callback for the button that was just created
-    $("#button" + questionCounter).click(function() {
-        console.log("in");
-        //var optionNum = 1;
-        //var questionNum = questionCounter;
-        $("#button" + questionCounter).parent().append(msHTML(6, 9));
-        //optionNum++;
-        console.log("out");
+    $("#question" + questionCounter).append(addOptionHTML(questionCounter));
+    $('#button' + questionCounter).click(function () {
+        qNum = questionCounter;
     });
-=======
-    $("#qBlock").append(questionTextHTML(questionCounter) + optionDivHTML>');
->>>>>>> master
+    console.log("3");
+    
     questionCounter++;
 });
 
@@ -35,53 +42,27 @@ $("#ss").click(function() {
     
 });
 
-//event listener for the "+" buttons for adding options
-$(".btn-+").click(function() {
-    if (this.parent().attr("id").indexOf(""));
-});
-
 // creates HTML for adding question text
-<<<<<<< HEAD
 // TODO: add name attribute once we figure out how the backend needs to receive data
 function questionTextHTML(counter) {
     return '<div class="form-group input-field" id="question"' + counter + '">'
         + '<label>Question ' + counter
         + '<input type="text" class="form-control">'
         + '</label></div>';
-=======
-// this resides within <div id="qBlock">
-function questionTextHTML(counter) {
-    return '<div class="form-group input-field"><label for="question' + counter + '">Question ' + counter + '</label><input type="text" class="form-control" id="question' + counter + '" name="q' + counter + 'text" placeholder="Enter question prompt here"><button type="button" class="btn btn-default btn-+">+</button></div>';
 }
 
 // creates the div that holds question options
 function optionDivHTML(counter) {
     return '<div id="question' + counter + '-options">';
->>>>>>> master
 }
 
-// TODO: better define access to this data based on ID or name
-// generates the HTML for the text box that will take the user's response
-function textResponseHTML() {
-    return '<textarea name="textArea" rows="5" cols="25"></textarea>'
-}
-
-<<<<<<< HEAD
 function addOptionHTML(counter) {
     return '<button type="button" class="btn btn-default" id="button' + counter + '">+</button>';
 }
-
+    
 function msHTML(questionNum, optionNum) {
     return '<label>Option ' + optionNum
            + '<input type=text class="form-control" '
            + 'id="question' + questionNum + '-option'+ optionNum
            + '"></label>';
-=======
-// create the HTML for the different options the question should have for both multi selection questions
-// parentID is the ID of the question the option corresponds to
-// optionNum is the optionNumber of the new option (determined by the number of children of the question)
-function msHTML(parentID, optionNum) {
-    
-
->>>>>>> master
 }

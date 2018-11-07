@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="description" content="EasyVote">
     <meta name="keywords" content="HTML">
     <title>Contact Us</title>
-    
+
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-   <header>
+    <header>
         <nav class="navbar-default">
-               <div class="container">
+            <div class="container">
                 <div class="navbar-header">
-                   <!-- hamburger button -->
-                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headlinks" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
+                    <!-- hamburger button -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headlinks" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a href="index.html" class="navbar-brand">EasyVote</a>
                 </div>
                 <ul class="nav navbar-nav">
@@ -36,16 +38,33 @@
                         <li><a href="display-polls.html">View Polls</a></li>
                         <li><a href="create-poll.html">Create Poll</a></li>
                     </ul>
-                   </div>
+                </div>
             </div>
         </nav>
     </header>
-    
-    <h1>Contact Us</h1>
-    <p>Email us: OUEasyVote@gmail.com</p>
-    
-    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-        crossorigin="anonymous"></script>
+
+    <main>
+        <br>
+        <br>
+        <br>
+        <h1 id="homehead">Contact US</h1>
+
+        <form action="mailto:oueasyvote@gmail.com" method="post" enctype="text/plain">Name:<br>
+            <input type="text" name="name"><br> E-mail:
+            <br>
+            <input type="text" name="mail"><br> Comment:
+            <br>
+            <input id="comment" type="text" name="comment"><br><br>
+            <input id="send" type="submit" value="Send">
+            <input id="reset" type="reset" value="Reset">
+        </form>
+        <br>
+        <br>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
+
 </html>

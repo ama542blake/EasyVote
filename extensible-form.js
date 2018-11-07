@@ -1,7 +1,8 @@
 // counter for the number of questions
 // starts at 2 because the first question is added on load
 var questionCounter = 2;
-
+// create different references to the question count for the add option buttons
+var qCountButtonTracker = new Array(1);
 
 // add a text response question
 $("#tr").click(function () {
@@ -26,26 +27,23 @@ $("#tr").click(function () {
 */
 // add a multiple response question
 $("#ms").click(function() {
-    $("#qBlock").append(questionTextHTML(questionCounter) + addOptionHTML(questionCounter));
+    $("#qBlock").append(questionTextHTML(questionCounter));
+    console.log("in");
     $("#question" + questionCounter).append(addOptionHTML(questionCounter));
-    $('#button' + questionCounter).click(function () {
-        qNum = questionCounter;
-    });
-    console.log("3");
-    
+    console.log("out");
+    newClickListener("#button" + questionCounter, questionCounter);
     questionCounter++;
 });
 
 $("#ss").click(function() {
     $("#qBlock").append(questionTextHTML(questionCounter));
     questionCounter++;
-    
 });
 
 // creates HTML for adding question text
 // TODO: add name attribute once we figure out how the backend needs to receive data
 function questionTextHTML(counter) {
-    return '<div class="form-group input-field" id="question"' + counter + '">'
+    return '<div class="form-group input-field" id="question' + counter + '">'
         + '<label>Question ' + counter
         + '<input type="text" class="form-control">'
         + '</label></div>';
@@ -57,12 +55,24 @@ function optionDivHTML(counter) {
 }
 
 function addOptionHTML(counter) {
+    console.log('addOptionHTML button type="button" class="btn btn-default"" id="button' + counter + '">+</button>');
     return '<button type="button" class="btn btn-default" id="button' + counter + '">+</button>';
 }
     
 function msHTML(questionNum, optionNum) {
+    console.log("in urmom");
     return '<label>Option ' + optionNum
            + '<input type=text class="form-control" '
            + 'id="question' + questionNum + '-option'+ optionNum
            + '"></label>';
+}
+
+function newClickListener(buttonID, counter) {
+    console.log("in " + counter);
+    console.log(buttonID);
+    qCountButtonTracker[counter] = counter;
+    console.log("-- " + qCountButtonTracker[counter] + " --");
+    $(buttonID).click(function () {
+        $("#question" + qCountButtonTracker[counter]).append(msHTML(qCountButtonTracker[counter], 1));
+    });
 }

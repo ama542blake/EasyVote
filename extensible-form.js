@@ -28,9 +28,7 @@ $("#tr").click(function () {
 // add a multiple response question
 $("#ms").click(function() {
     $("#qBlock").append(questionTextHTML(questionCounter));
-    console.log("in");
     $("#question" + questionCounter).append(addOptionHTML(questionCounter));
-    console.log("out");
     newClickListener("#button" + questionCounter, questionCounter);
     questionCounter++;
 });
@@ -49,30 +47,29 @@ function questionTextHTML(counter) {
         + '</label></div>';
 }
 
-// creates the div that holds question options
-function optionDivHTML(counter) {
-    return '<div id="question' + counter + '-options">';
-}
-
 function addOptionHTML(counter) {
-    console.log('addOptionHTML button type="button" class="btn btn-default"" id="button' + counter + '">+</button>');
     return '<button type="button" class="btn btn-default" id="button' + counter + '">+</button>';
 }
     
 function msHTML(questionNum, optionNum) {
-    console.log("in urmom");
     return '<label>Option ' + optionNum
-           + '<input type=text class="form-control" '
+           + '<input type=text class="form-control option-input" '
            + 'id="question' + questionNum + '-option'+ optionNum
            + '"></label>';
 }
 
+//function ssHTML(questionNum, optionNum) {
+//    return '<label>Option ' + optionNum
+//           + '<input type=text class="form-control option-input" '
+//           + 'id="question' + questionNum + '-option'+ optionNum
+//           + '"></label>';
+//}
+
 function newClickListener(buttonID, counter) {
-    console.log("in " + counter);
-    console.log(buttonID);
     qCountButtonTracker[counter] = counter;
-    console.log("-- " + qCountButtonTracker[counter] + " --");
+    var optionNum = 1;
     $(buttonID).click(function () {
-        $("#question" + qCountButtonTracker[counter]).append(msHTML(qCountButtonTracker[counter], 1));
+        $("#question" + qCountButtonTracker[counter]).append(msHTML(qCountButtonTracker[counter], optionNum));
+        optionNum++;
     });
 }

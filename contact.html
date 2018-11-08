@@ -10,6 +10,13 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
+    <style type="text/css">
+<!--
+.style2 {color: #000000}
+.style3 {color: #000080}
+.style4 {color: #FFFFFF}
+-->
+    </style>
 </head>
 
 <body>
@@ -43,27 +50,53 @@
         </nav>
     </header>
 
-    <main>
-        <br>
-        <br>
-        <br>
 
-        <center>
-            <h1 id="homehead">Contact US OR send email to OUEasyVote@gmail.com</h1>
-
-            <form action="mailto:oueasyvote@gmail.com" method="post" enctype="text/plain">Name:<br>
-                <input type="text" name="name"><br> E-mail:
-                <br>
-                <input type="text" name="mail"><br> Comment:
-                <br>
-                <input id="comment" type="text" name="comment"><br><br>
-                <input id="send" type="submit" value="Send">
-                <input id="reset" type="reset" value="Reset">
-            </form>
-            <br>
-            <br>
-        </center>
-    </main>
+<form action="#" method="get" target="_parent">
+  <h1 align="center"> We value your feedback!</h1>
+  <fieldset>
+    <legend><span class="style4">Feedback Form </span>:</legend>
+    <p>Salutation</p><br>
+    <span class="style3">
+        <select Greeting="Salutation">
+           <option value="Mr.">Mr</option>
+           <option value="Mrs.">Mrs</option>
+           <option value="Miss">Miss</option>
+           <option value="DR.">DR</option>
+        </select>
+    </span> 
+    <p>Select a date</p><br>
+    <input name="pickeddate" type="date" class="style3">
+        <p>Subject<br>
+        <input type="checkbox" name="Subject" value="website issue">Website Issue<br>
+        <input type="checkbox" name="Subject" value="personal" checked="checked">Personal<br>
+        <input type="checkbox" name="Subject" value="suggestion" >Suggestion </p>
+        <p>Priority: <br><input type="radio" name="priority" value="normal" checked> Normal<br>
+        <input type="radio" name="priority" value="urgent"> Urgent<br>
+        First name:<br>
+        <input name="firstname" type="text" class="style3" value="Enter First Name">
+        <br>
+        Last name:<br>
+        <input name="lastname" type="text" class="style3" value="Enter Last Name">
+        </p>
+        <p>Please enter your email<br>
+      <input
+ name="useremail" type="email" class="style3">
+    </p>
+    <tr>
+  <td>
+      <span class="style2">
+       <textarea name="comments" cols="80" rows="10" class="style3">Enter Comments Here </textarea>
+      </span>
+  </td>
+    </tr>
+    <div align="center"><br>
+        <input type="submit" class="style3" value="Send feedback"> 
+        <input type="reset" class="style3" value="Start Over"> 
+  </div>
+  </fieldset>
+  
+ 
+</form>
 
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>

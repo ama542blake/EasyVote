@@ -3,6 +3,10 @@
 var questionCounter = 1;
 // create different references to the question count for the add option buttons
 var qCountButtonTracker = new Array(1);
+// array to hold questions 
+
+
+/* --------------------------------------------------Event Handlers-------------------------------------------------- */
 
 // add a text response question
 $("#tr").click(function () {
@@ -10,7 +14,6 @@ $("#tr").click(function () {
     $("#qBlock").append(generateQuestionTextHTML(questionCounter, 'TR')); 
     questionCounter++;
 });
-
 
 // add a multiple response question
 $("#ms").click(function() {
@@ -27,6 +30,24 @@ $("#ss").click(function() {
     questionCounter++;
 });
 
+$('input[name="theme"]').click(function () {
+  console.log("ok");
+  themeSelector();
+});
+
+// adds click listeners to the "Add Option" button
+// buttonID: ID of the button to attact the function to
+// questionNumber: question that the button is attached to
+function newAddOptionClickListener(buttonID, questionNumber, questionType) {
+    qCountButtonTracker[questionNumber] = questionNumber;
+    var optionNum = 1;
+    $(buttonID).click(function () {
+        $("#" + questionType + "question" + qCountButtonTracker[questionNumber]).append(generateOptionInputHTML(qCountButtonTracker[questionNumber], optionNum));
+        optionNum++;
+    });
+}
+
+/* --------------------------------------------------HTML Generators-------------------------------------------------- */
 // creates HTML for adding question text
 // TODO: add name attribute once we figure out how the backend needs to receive data
 // counter: counts the number of questions (corresponds do questionCounter)
@@ -66,23 +87,6 @@ function generateOptionInputHTML(questionNum, optionNum) {
                 + '" name="question' + questionNum + '-option' + optionNum + '"></label>';
         }
 }
-
-// adds click listeners to the "Add Option" button
-// buttonID: ID of the button to attact the function to
-// questionNumber: question that the button is attached to
-function newAddOptionClickListener(buttonID, questionNumber, questionType) {
-    qCountButtonTracker[questionNumber] = questionNumber;
-    var optionNum = 1;
-    $(buttonID).click(function () {
-        $("#" + questionType + "question" + qCountButtonTracker[questionNumber]).append(generateOptionInputHTML(qCountButtonTracker[questionNumber], optionNum));
-        optionNum++;
-    });
-}
-
-$('input[name="theme"]').click(function () {
-  console.log("ok");
-  themeSelector();
-});
 
 
 function themeSelector() {

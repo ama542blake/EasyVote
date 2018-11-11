@@ -46,6 +46,7 @@ $("#ss").click(function () {
 function SingleSelection() {
     this.questionNumber = questionCount;
     this.optionCount = 3;
+    this.question = this;
     this.questionInputHTML = function () {
         if (questionCount > MAX_QUESTIONS) {
             alert("Sorry, the maximum number of questions allowed is " + MAX_QUESTIONS + ".");
@@ -63,12 +64,13 @@ function SingleSelection() {
                                     + '<button type="button" class="btn btn-default" id="btnAdd' + this.questionNumber + '">Add Option</button>'
                               + '</div>');
                 $("#btnAdd" + this.questionNumber).click(function () {
+                    console.log(this);
                     if (this.optionCount > MAX_OPTIONS) {
                         alert("Sorry, you may not add more than " + MAX_OPTIONS + " options to a single selection question.");
                     } else {
-                        $("#btnAdd" + this.questionNumber).prepend(
-                            + '<label>Option ' + this.optionNumber
-                                + '<input type="text" class="form-control" id="SS_q' + this.questionNumber + '_o2" name="SS_q' + this.questionNumber + '_o2">'
+                        $("#qBlock").append(
+                             '<label>Option ' + this.optionCount
+                                + '<input type="text" class="form-control" id="SS_q' + this.questionCount + '_o' + this.optionCount + '"name="SS_q' + this.questionCount + '_o' + this.optionCount + '">'
                             + '</label>');
                         alert("click");
                     }

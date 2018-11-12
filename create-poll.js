@@ -16,6 +16,7 @@ $("#tr").click(function() {
 
 function TextResponse() {
     this.qNum = questionCount;
+    this.qType = "TR";
     this.id = 'TR_q' + this.qNum; 
     
     this.qTextHTML = function () {
@@ -45,26 +46,36 @@ $("#ss").click(function() {
                 $('#' + newQuestion.id + '_options').append(addOption(newQuestion.qNum, newQuestion.optionCount));
             }
         });
+        /* 
+           Callback for the remove question button.
+           What happens when this button is pushed:
+            1: remove newQuestion from the array andmove all questions after the removed question down by 1 index in the array 
+                1a: remove the last element of the array because it will be null
+            2: for each of the questions following the removed one, need to update:
+                a: question number
+                b: field label
+                c: id
+                d: name
+                d: if it is a multiple choice question, update a-d for the options (leave option number the same)
+            3: newQuestion is removed from the page (HTML) array, and should be nulled out
+        */
         $("#qRemBtn" + newQuestion.qNum).click(function() {
-           console.log("Before: " + "#" + newQuestion.id);
-            console.log($('#' + newQuestion.id).html());
-            $('#' + newQuestion.id).html('');
-            console.log("After: " + "#" + newQuestion.id);
-            console.log($('#' + newQuestion.id).remove());
+            $('#' + newQuestion.id).remove();
             // for each following element, update HTML to reflect changes in questionNumber, and update the objects themselves
             for (i = newQuestion.qNum; i > questionCount; i++) {
-                // remember ID of moved element to apply it to the element taking its place
-                oldQid = questions[i-1].id;
-                // move the next element down 1 index
-                questions[i-1] = questions[i];
-                // reset the moved next element's id (not in HTML, just the attribute)
-                questions[i-1].id = oldQid;
-                // decrement question Number
-                questions[i-1].qnum--;
+                // (2a) decrement the following elements' question numbers
+                questions[i].qNum--;
                 // reset the name and id in the HTML
-                questions[i-1].attr({id: questions[i-1].id, name: questions[i-1].id});
+                questions[i].id = idUpdate(questions[i].qType, questions[i].qNum);
+                $("#" + questions[i].id).attr({name: questions[i].id, id: questions[i].id});
+                //$(questions[i].attr({id: idUpdate(questions[i].qType), name: idUpdate(questions[i].qNum)});
+                //questions[i].attr({id: , name: , });
                 // reset the question's label in the HTML
                 $("#" + questions[i-1].id + " label").html($("#" + questions[i-1].id + " label").html().replace(/Question [0-9][0-9]*/, "Question " + questions[i-1].qNum));
+                
+                //questions[i-1] = questions[i]; 
+                
+                
             }
             questions[questionCount - 1] = null;
             // remove null value at end of arrray
@@ -121,10 +132,14 @@ function MultipleChoice(qType) {
                     +'</label>'
              + '</div>';
     };
-    
 }
 
-// button to remove a questions
+// update a question div ID
+    this.idUpdate = function(qType, qNum) {
+        return qtype + "_q" + qNum;
+    }
+
+// button to remove a question
 function qRemBtn(qNum) {
     return '<button type="button" class="btn btn-default" id="qRemBtn' + qNum + '">Remove Question</button>';
 }

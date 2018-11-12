@@ -7,6 +7,7 @@ var questionCount = 1;
 // array that holds all questions
 var questions = new Array(1);
 
+/* Functions for adding questions to the form */
 
 $("#tr").click(function () {
    var newQuestion = new TextResponse();
@@ -32,6 +33,8 @@ function TextResponse() {
     };
 };
 
+
+/* Creates a single selection question, then adds it to the array of questions and displays it on the page */
 $("#ss").click(function () {
    var newQuestion = new MultipleChoice("SS");
     questions[questionCount - 1] = newQuestion;
@@ -39,6 +42,7 @@ $("#ss").click(function () {
    questionCount++;
 });
 
+/* Creates a multiplce selection question, then adds it to the array of questions and displays it on the page */
 $("#ms").click(function () {
     var newQuestion = new MultipleChoice("MS");
     questions[questionCount - 1] = newQuestion;
@@ -93,3 +97,14 @@ function Option(questionNumber, optionNumber, questionType) {
                 + '<input type="text" class="form-control" id="' + questionType + '_q' + questionNumber + '_o' + optionNumber + '"name="' + questionType + '_q' + questionNumber + '_o' + optionNumber + '">'
          + '</label>'
 }
+
+/* End of functions for adding questions to the form */
+
+
+
+
+/* Functions for removing questions from the form */
+
+
+
+/* End of unctions for removing questions from the form */

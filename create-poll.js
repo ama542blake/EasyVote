@@ -6,9 +6,8 @@ const MAX_OPTIONS = 10;
 var questionCount = 1;
 // array that holds all questions
 var questions = new Array(1);
-// object to hold text response data
 
-/* -------------------- V Text Responses V -------------------- */
+
 $("#tr").click(function () {
    var newQuestion = new TextResponse();
     questions[questionCount - 1] = newQuestion;
@@ -80,10 +79,7 @@ function MultipleChoice(qType) {
                     if (thisQuestion.optionCount > MAX_OPTIONS) {
                         alert("Sorry, you may not add more than " + MAX_OPTIONS + " options to a single selection question.");
                     } else {
-                        $("#" + thisQuestion.questionType + "_q" + thisQuestion.questionNumber + '_options').append(
-                             '<label class="option">Option ' + thisQuestion.optionCount
-                                + '<input type="text" class="form-control" id="' + thisQuestion.questionType + '_q' + thisQuestion.questionNumber + '_o' + thisQuestion.optionCount + '"name="' + thisQuestion.questionType + '_q' + thisQuestion.questionNumber + '_o' + thisQuestion.optionCount + '">'
-                            + '</label>');
+                        $("#" + thisQuestion.questionType + "_q" + thisQuestion.questionNumber + '_options').append(Option(thisQuestion.questionNumber, thisQuestion.optionCount, thisQuestion.questionType));
                         thisQuestion.optionCount++;
                     }
                 });
@@ -91,4 +87,9 @@ function MultipleChoice(qType) {
     };
 }
 
-
+// construct the option text inputs
+function Option(questionNumber, optionNumber, questionType) {
+    return '<label class="option">Option ' + optionNumber
+                + '<input type="text" class="form-control" id="' + questionType + '_q' + questionNumber + '_o' + optionNumber + '"name="' + questionType + '_q' + questionNumber + '_o' + optionNumber + '">'
+         + '</label>'
+}

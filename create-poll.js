@@ -32,7 +32,7 @@ $("#ss").click(function() {
     var newQuestion = new MultipleChoice("SS");
     $("#qBlock").append(newQuestion.qTextHTML());
     questions[questionCount - 1] = newQuestion.id;
-    $('#' + newQuestion.id + '_options').append(addBtn(newQuestion.qNum)); 
+    $('#' + newQuestion.id).append(addBtn(newQuestion.qNum)); 
     $("#addBtn" + newQuestion.qNum).click(function () {
         if (newQuestion.optionCount > MAX_OPTIONS) {
             alert("Sorry, you may only add " + MAX_OPTIONS + " options to a multiple choice question.");
@@ -48,7 +48,7 @@ $("#ms").click(function() {
     var newQuestion = new MultipleChoice("MS");
     $("#qBlock").append(newQuestion.qTextHTML());
     questions[questionCount - 1] = newQuestion.id;
-    $('#' + newQuestion.id + '_options').append(addBtn(newQuestion.qNum)); 
+    $('#' + newQuestion.id).append(addBtn(newQuestion.qNum)); 
     $("#addBtn" + newQuestion.qNum).click(function () {
         if (newQuestion.optionCount > MAX_OPTIONS) {
             alert("Sorry, you may only add " + MAX_OPTIONS + " options to a multiple choice question.");

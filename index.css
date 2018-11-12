@@ -33,3 +33,7 @@ form {
 div[class="radio"] label {
     padding-right: 25px;
 }
+
+.option {
+    margin-left: 25px;
+}

@@ -65,13 +65,13 @@ $("#ss").click(function() {
             for (i = newQuestion.qNum; i > questionCount; i++) {
                 // (2a) decrement the following elements' question numbers
                 questions[i].qNum--;
-                // reset the name and id in the HTML
+                // reset the id in the ARRAY
                 questions[i].id = idUpdate(questions[i].qType, questions[i].qNum);
+                // reset the actual HTML id, since the array and HTML are not directly linked
+                // name and ID are the same so they use the the id attribute of each member of the questions array for their value
                 $("#" + questions[i].id).attr({name: questions[i].id, id: questions[i].id});
-                //$(questions[i].attr({id: idUpdate(questions[i].qType), name: idUpdate(questions[i].qNum)});
-                //questions[i].attr({id: , name: , });
                 // reset the question's label in the HTML
-                $("#" + questions[i-1].id + " label").html($("#" + questions[i-1].id + " label").html().replace(/Question [0-9][0-9]*/, "Question " + questions[i-1].qNum));
+                $("#" + questions[i].id + " label").html($("#" + questions[i-1].id + " label").html().replace(/Question [0-9][0-9]*/, "Question " + questions[i-1].qNum));
                 
                 //questions[i-1] = questions[i]; 
                 

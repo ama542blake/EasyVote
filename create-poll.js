@@ -9,9 +9,14 @@ var questions = new Array(1);
 
 $("#tr").click(function() {
     questionCount++;
-    var newQuestion = new TextResponse();
-    $("#qBlock").append(newQuestion.qTextHTML());
-    questions[questionCount - 1] = newQuestion;
+     if (questionCount > MAX_QUESTIONS) {
+        alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
+        questionCount--;
+    } else {
+        var newQuestion = new TextResponse();
+        $("#qBlock").append(newQuestion.qTextHTML());
+        questions[questionCount - 1] = newQuestion;
+    }
 });
 
 function TextResponse() {
@@ -33,6 +38,7 @@ $("#ss").click(function() {
     questionCount++;
     if (questionCount > MAX_QUESTIONS) {
         alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
+        questionCount--;
     } else {
         var newQuestion = new MultipleChoice("SS");
         $("#qBlock").append(newQuestion.qTextHTML());
@@ -48,39 +54,31 @@ $("#ss").click(function() {
         });
         /* 
            Callback for the remove question button.
-           What happens when this button is pushed:
-            1: remove newQuestion from the array andmove all questions after the removed question down by 1 index in the array 
-                1a: remove the last element of the array because it will be null
-            2: for each of the questions following the removed one, need to update:
-                a: question number
-                b: field label
-                c: id
-                d: name
-                d: if it is a multiple choice question, update a-d for the options (leave option number the same)
-            3: newQuestion is removed from the page (HTML) array, and should be nulled out
+            TODO (apply to the MS and TR remove buttons as well): 
+                1: update option field IDs to match the new question number
+                2: preserve the text of all fields when relabeling
         */
         $("#qRemBtn" + newQuestion.qNum).click(function() {
-            $('#' + newQuestion.id).remove();
-            // for each following element, update HTML to reflect changes in questionNumber, and update the objects themselves
-            for (i = newQuestion.qNum; i > questionCount; i++) {
-                // (2a) decrement the following elements' question numbers
+            // remove the question from the HTML entirely
+            $("#" + newQuestion.id).remove();
+            // for each of the following elements, update details about it:
+            for (i = newQuestion.qNum; i < questionCount; i++) {
+                // reduce the question number for the following question
                 questions[i].qNum--;
-                // reset the id in the ARRAY
-                questions[i].id = idUpdate(questions[i].qType, questions[i].qNum);
-                // reset the actual HTML id, since the array and HTML are not directly linked
-                // name and ID are the same so they use the the id attribute of each member of the questions array for their value
-                $("#" + questions[i].id).attr({name: questions[i].id, id: questions[i].id});
-                // reset the question's label in the HTML
-                $("#" + questions[i].id + " label").html($("#" + questions[i-1].id + " label").html().replace(/Question [0-9][0-9]*/, "Question " + questions[i-1].qNum));
-                
-                //questions[i-1] = questions[i]; 
-                
-                
+                // create the new ID to take place of the previous question
+                var newID = idUpdate(questions[i].qType, questions[i].qNum);
+                // update the question with its new id and name in the HTML (not the questions array)
+                $("#" + questions[i].id).attr({id: newID, name: newID});
+                // update the question with its new id in the ARRAY (not HTML)
+                questions[i].id = newID;
+                // move the questions following the removed questions down an index in the questions array
+                questions[i-1] = questions[i];
+                questions[i]= null;
+                // update the label for the question
+                $("#" + questions[i-1].id + " label:first-child").html($("#" + questions[i-1].id + " label:first-child").html().replace(/Question [0-9][0-9]*/, "Question " + questions[i-1].qNum));
             }
-            questions[questionCount - 1] = null;
-            // remove null value at end of arrray
+            questionCount--;
             questions = questions.filter(Boolean);
-            questionCount--;    
         });
     }
 });
@@ -89,6 +87,7 @@ $("#ms").click(function() {
     questionCount++;
     if (questionCount > MAX_QUESTIONS) {
         alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
+        questionCount--;
     } else {
         var newQuestion = new MultipleChoice("MS");
         $("#qBlock").append(newQuestion.qTextHTML());
@@ -136,7 +135,7 @@ function MultipleChoice(qType) {
 
 // update a question div ID
     this.idUpdate = function(qType, qNum) {
-        return qtype + "_q" + qNum;
+        return qType + "_q" + qNum;
     }
 
 // button to remove a question

@@ -38,6 +38,7 @@ $("#ss").click(function() {
         $("#qBlock").append(newQuestion.qTextHTML());
             }
         initBtnRem();
+        initBtnOAdd("SingleSelection");
         });
 
 $("#ms").click(function() {
@@ -50,27 +51,29 @@ $("#ms").click(function() {
         $("#qBlock").append(newQuestion.qTextHTML());
         }
             initBtnRem();
+            initBtnOAdd('MultipleSelection');
         });
 
 function MultipleChoice(qType) {
+    // the question type without whitespace; for the option array
+    noWSType = qType.replace(' ', '');
     this.qTextHTML = function() {
         return '<div class="form-group">'
                     + '<label>' + qType + ' Question' 
                         + '<input type="text" class="form-control" name="questions[]">'
                         + qRemBtn()
-                        + oAddBtn()
                         + '<div class="form-group input-field option-block">'
-                            + '<label class="option">Option 1'
-                                + '<input type="text" class="form-control" name="questions[' + qType + ']>'
+                            + '<label class="option">Option'
+                                + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
                             + '</label>'
-                            + '<label class="option">Option 2'
-                                + '<input type="text" class="form-control" id="' + this.id + '_o2">'
+                            + '<label class="option">Option'
+                                + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
                             + '</label>'
-                        + '</div>'
+                         + '</div>'
+                         + oAddBtn()
                     +'</label>'
              + '</div>';
     };
-    initBtnRem();
 }
 
 // button to remove a question
@@ -86,14 +89,21 @@ function initBtnRem () {
 }
 
 
-function oAddBtn(qNum) {
-    return '<button type="button" class="btn btn-default" id="oAddBtn' + qNum + '">Add Option</button>';
+function oAddBtn() {
+    return '<button type="button" class="btn btn-default btn-fuckmyass">Add Option</button>';
 }
 
-function addOption(qNum, optNum) {
-    return '<label class="option">Option ' + optNum
-            + '<input type="text" class="form-control" id="oAddBtn_q' + qNum + '_o' + optNum + '">'
-         + '</label>'
+function initBtnOAdd(noWSType) {
+    $(".btn-fuckmyass").click(function () {
+       $(this).prev().append(addOption(noWSType)); 
+    });
+
+}
+
+function addOption(noWSType) {
+    return '<label class="option">Option'
+            + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
+         + '</label>';
 }
 
 function oRemBtn(qNum, oNum) {

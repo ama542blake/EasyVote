@@ -90,12 +90,16 @@ function initBtnRem () {
 
 
 function oAddBtn() {
-    return '<button type="button" class="btn btn-default btn-fuckmyass">Add Option</button>';
+    return '<button type="button" class="btn btn-default btn-oAdd">Add Option</button>';
 }
 
 function initBtnOAdd(noWSType) {
-    $(".btn-fuckmyass").click(function () {
-       $(this).prev().append(addOption(noWSType)); 
+    $(".btn-oAdd").click(function () {
+        if (($(this).prev().children().length) >= MAX_OPTIONS) {
+            alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
+        } else {
+            $(this).prev().append(addOption(noWSType)); 
+        }
     });
 
 }

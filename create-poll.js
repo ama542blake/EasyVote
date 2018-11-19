@@ -51,7 +51,7 @@ $("#ms").click(function() {
         $("#qBlock").append(newQuestion.qTextHTML());
         }
             initBtnRem();
-            initBtnOAdd('MultipleSelection');
+            new initBtnOAdd('MultipleSelection');
         });
 
 function MultipleChoice(qType) {
@@ -95,18 +95,18 @@ function oAddBtn() {
 
 function initBtnOAdd(noWSType) {
     $(".btn-oAdd").click(function () {
+        var times = 0;
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-            $(this).prev().append(addOption(noWSType)); 
-        }
+             $(this).prev().append(addOption(noWSType)); 
+        } 
     });
-
 }
 
 function addOption(noWSType) {
     return '<label class="option">Option'
-            + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
+            + '<input type=text class="form-control" name="questions[][' + noWSType + '"]>'
          + '</label>';
 }
 

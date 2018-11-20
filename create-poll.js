@@ -13,15 +13,15 @@ $("#fr").click(function() {
         var newQuestion = new FreeResponse();
         $("#qBlock").append(newQuestion.qTextHTML());
     }
-    initBtnRem();
+    initBtnRem(questionCount);
 });
 
 function FreeResponse() {    
     this.qTextHTML = function () {
-        return '<div class="form-group">'
-                    + '<label>Free Response Question'
+        return '<div class="form-group" id="q"' + questionCount + '">'
+                    + '<label>Question ' + questionCount + ': Free Response'
                         + '<input type="text" class="form-control" name="questions[][FreeResponse]">'
-                        + qRemBtn()
+                        + qRemBtn(questionCount)
                     +'</label>'
              + '</div>';
     };
@@ -37,7 +37,7 @@ $("#ss").click(function() {
         var newQuestion = new MultipleChoice("Single Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
             }
-        initBtnRem();
+        initBtnRem(questionCount);
         initBtnOAdd("SingleSelection");
         });
 
@@ -50,7 +50,7 @@ $("#ms").click(function() {
         var newQuestion = new MultipleChoice("Multiple Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
         }
-            initBtnRem();
+            initBtnRem(questionCount);
             new initBtnOAdd('MultipleSelection');
         });
 
@@ -58,10 +58,10 @@ function MultipleChoice(qType) {
     // the question type without whitespace; for the option array
     noWSType = qType.replace(' ', '');
     this.qTextHTML = function() {
-        return '<div class="form-group">'
-                    + '<label>' + qType + ' Question' 
+        return '<div class="form-group" id="q"' + questionCount + '">'
+                    + '<label> Question ' + questionCount + ': ' + qType 
                         + '<input type="text" class="form-control" name="questions[]">'
-                        + qRemBtn()
+                        + qRemBtn(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
                                 + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
@@ -70,7 +70,7 @@ function MultipleChoice(qType) {
                                 + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
                             + '</label>'
                          + '</div>'
-                         + oAddBtn()
+                         + oAddBtn(questionCount)
                     +'</label>'
              + '</div>';
     };
@@ -78,19 +78,31 @@ function MultipleChoice(qType) {
 
 // button to remove a question
 function qRemBtn(qNum) {
-    return '<button type="button" class="btn btn-default btn-rem">Remove Question</button>'
+    return '<button type="button" class="btn btn-default" id="btn-rem' + qNum + '">Remove Question</button>'
 }
 
-function initBtnRem () {
-    $(".btn-rem").click(function () {
+function initBtnRem (qNum) {
+    $("#btn-rem" + qNum).click(function () {
         $(this).parent().parent().remove(); 
+        var thisQnum = qNum;
+        console.log(thisQnum);
+        // remove and reID the following questions
+        for (i = thisQnum; i < questionCount; i++) {
+            // reID the following question's div
+            $("#q" + (i + 1)).attr('id', "q" + i);
+            // reID the following question's remove button
+            $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
+            // reinitialize the button listener for the remove button
+            $("#btn-rem" + i).unbind();
+            initBtnRem(i);
+        }
         questionCount--;
     });
 }
 
 
-function oAddBtn() {
-    return '<button type="button" class="btn btn-default btn-oAdd">Add Option</button>';
+function oAddBtn(qNum) {
+    return '<button type="button" class="btn btn-default btn-oAdd' + qNum + '">Add Option</button>';
 }
 
 function initBtnOAdd(noWSType) {

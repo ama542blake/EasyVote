@@ -18,10 +18,10 @@ $("#fr").click(function() {
 
 function FreeResponse() {    
     this.qTextHTML = function () {
-        return '<div class="form-group" id="q"' + questionCount + '">'
+        return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label>Question ' + questionCount + ': Free Response'
                         + '<input type="text" class="form-control" name="questions[][FreeResponse]">'
-                        + qRemBtn(questionCount)
+                        + btnRem(questionCount)
                     +'</label>'
              + '</div>';
     };
@@ -38,7 +38,7 @@ $("#ss").click(function() {
         $("#qBlock").append(newQuestion.qTextHTML());
             }
         initBtnRem(questionCount);
-        initBtnOAdd("SingleSelection");
+        initBtnOAdd("SingleSelection", questionCount);
         });
 
 $("#ms").click(function() {
@@ -51,17 +51,17 @@ $("#ms").click(function() {
         $("#qBlock").append(newQuestion.qTextHTML());
         }
             initBtnRem(questionCount);
-            new initBtnOAdd('MultipleSelection');
+            initBtnOAdd('MultipleSelection', questionCount);
         });
 
 function MultipleChoice(qType) {
     // the question type without whitespace; for the option array
     noWSType = qType.replace(' ', '');
     this.qTextHTML = function() {
-        return '<div class="form-group" id="q"' + questionCount + '">'
+        return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label> Question ' + questionCount + ': ' + qType 
                         + '<input type="text" class="form-control" name="questions[]">'
-                        + qRemBtn(questionCount)
+                        + btnRem(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
                                 + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
@@ -70,48 +70,49 @@ function MultipleChoice(qType) {
                                 + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
                             + '</label>'
                          + '</div>'
-                         + oAddBtn(questionCount)
+                         + btnOAdd(questionCount)
                     +'</label>'
              + '</div>';
     };
 }
 
 // button to remove a question
-function qRemBtn(qNum) {
+function btnRem(qNum) {
     return '<button type="button" class="btn btn-default" id="btn-rem' + qNum + '">Remove Question</button>'
 }
 
+// event hander for the btn-rem
 function initBtnRem (qNum) {
     $("#btn-rem" + qNum).click(function () {
         $(this).parent().parent().remove(); 
-        var thisQnum = qNum;
-        console.log(thisQnum);
         // remove and reID the following questions
-        for (i = thisQnum; i < questionCount; i++) {
+        for (i = qNum; i < questionCount; i++) {
             // reID the following question's div
             $("#q" + (i + 1)).attr('id', "q" + i);
             // reID the following question's remove button
             $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
-            // reinitialize the button listener for the remove button
+            // relabel the question
+            $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
+            // reset the event listener on the reID'd button
             $("#btn-rem" + i).unbind();
             initBtnRem(i);
+            // reset the 
         }
         questionCount--;
     });
 }
 
 
-function oAddBtn(qNum) {
-    return '<button type="button" class="btn btn-default btn-oAdd' + qNum + '">Add Option</button>';
+function btnOAdd(qNum) {
+    return '<button type="button" class="btn btn-default" id="btn-oAdd' + qNum + '">Add Option</button>';
 }
 
-function initBtnOAdd(noWSType) {
-    $(".btn-oAdd").click(function () {
-        var times = 0;
+function initBtnOAdd(noWSType, qNum) {
+    $("#btn-oAdd" + qNum).click(function () {
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-             $(this).prev().append(addOption(noWSType)); 
+             $(this).prev().append(addOption(noWSType, qNum)); 
         } 
     });
 }

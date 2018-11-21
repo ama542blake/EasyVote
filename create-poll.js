@@ -20,7 +20,7 @@ function FreeResponse() {
     this.qTextHTML = function () {
         return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label>Question ' + questionCount + ': Free Response'
-                        + '<input type="text" class="form-control" name="questions[][FreeResponse]">'
+                        + '<input type="text" class="form-control" name="questions[]">'
                         + btnRem(questionCount)
                     +'</label>'
              + '</div>';
@@ -64,10 +64,10 @@ function MultipleChoice(qType) {
                         + btnRem(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
-                                + '<input type=text class="form-control" name="questions[][' + noWSType + ']">'
+                                + '<input type=text class="form-control" name="questions[][options]">'
                             + '</label>'
                             + '<label class="option">Option'
-                                + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
+                                + '<input type=text class="form-control" name=questions[][options]>'
                             + '</label>'
                          + '</div>'
                          + btnOAdd(questionCount)

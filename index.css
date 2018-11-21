@@ -37,3 +37,6 @@ div[class="radio"] label {
 .option {
     margin-left: 25px;
 }
+
+.blackText {color: #000000};
+.whiteText {color: #FFFFFF};

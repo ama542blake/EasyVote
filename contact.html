@@ -10,13 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
-    <style type="text/css">
-<!--
-.style2 {color: #000000}
-.style3 {color: #000080}
-.style4 {color: #FFFFFF}
--->
-    </style>
+
 </head>
 
 <body>
@@ -52,11 +46,11 @@
 
 
 <form action="#" method="get" target="_parent">
-  <h1 align="center"> We value your feedback!</h1>
+  <h1 align="center">We value your feedback!</h1>
   <fieldset>
-    <legend><span class="style4">Feedback Form </span>:</legend>
+    <legend class="whiteText"><span>Feedback:</span></legend>
     <p>Salutation</p><br>
-    <span class="style3">
+    <span class="blackText">
         <select Greeting="Salutation">
            <option value="Mr.">Mr</option>
            <option value="Mrs.">Mrs</option>
@@ -65,7 +59,7 @@
         </select>
     </span> 
     <p>Select a date</p><br>
-    <input name="pickeddate" type="date" class="style3">
+    <input name="pickeddate" type="date" class="blackText form-control">
         <p>Subject<br>
         <input type="checkbox" name="Subject" value="website issue">Website Issue<br>
         <input type="checkbox" name="Subject" value="personal" checked="checked">Personal<br>
@@ -73,25 +67,25 @@
         <p>Priority: <br><input type="radio" name="priority" value="normal" checked> Normal<br>
         <input type="radio" name="priority" value="urgent"> Urgent<br>
         First name:<br>
-        <input name="firstname" type="text" class="style3" value="Enter First Name">
+        <input name="firstname" type="text" class="blackText" value="Enter First Name">
         <br>
         Last name:<br>
-        <input name="lastname" type="text" class="style3" value="Enter Last Name">
+        <input name="lastname" type="text" class="blackText" value="Enter Last Name">
         </p>
         <p>Please enter your email<br>
       <input
- name="useremail" type="email" class="style3">
+ name="useremail" type="email" class="blackText">
     </p>
     <tr>
   <td>
-      <span class="style2">
-       <textarea name="comments" cols="80" rows="10" class="style3">Enter Comments Here </textarea>
+      <span class="blackText">
+       <textarea name="comments" cols="80" rows="10" class="blackText">Enter Comments Here </textarea>
       </span>
   </td>
     </tr>
     <div align="center"><br>
-        <input type="submit" class="style3" value="Send feedback"> 
-        <input type="reset" class="style3" value="Start Over"> 
+        <input type="submit" class="blackText" value="Send feedback"> 
+        <input type="reset" class="blackText" value="Start Over"> 
   </div>
   </fieldset>
   

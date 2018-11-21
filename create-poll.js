@@ -13,7 +13,7 @@ $("#fr").click(function() {
         var newQuestion = new FreeResponse();
         $("#qBlock").append(newQuestion.qTextHTML());
     }
-    initBtnRem(questionCount);
+    initBtnRem("FreeResponse", questionCount);
 });
 
 function FreeResponse() {    
@@ -37,8 +37,8 @@ $("#ss").click(function() {
         var newQuestion = new MultipleChoice("Single Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
             }
-        initBtnRem(questionCount);
-        initBtnOAdd("SingleSelection", questionCount);
+        initBtnRem('SingleSelection', questionCount);
+        initBtnOAdd('SingleSelection', questionCount);
         });
 
 $("#ms").click(function() {
@@ -50,7 +50,7 @@ $("#ms").click(function() {
         var newQuestion = new MultipleChoice("Multiple Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
         }
-            initBtnRem(questionCount);
+            initBtnRem('MultipleSelection', questionCount);
             initBtnOAdd('MultipleSelection', questionCount);
         });
 
@@ -64,7 +64,7 @@ function MultipleChoice(qType) {
                         + btnRem(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
-                                + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
+                                + '<input type=text class="form-control" name="questions[][' + noWSType + ']">'
                             + '</label>'
                             + '<label class="option">Option'
                                 + '<input type=text class="form-control" name=questions[][' + noWSType + ']>'
@@ -82,41 +82,51 @@ function btnRem(qNum) {
 }
 
 // event hander for the btn-rem
-function initBtnRem (qNum) {
+function initBtnRem (noWSType, qNum) {
     $("#btn-rem" + qNum).click(function () {
         $(this).parent().parent().remove(); 
         // remove and reID the following questions
-        for (i = qNum; i < questionCount; i++) {
-            // reID the following question's div
-            $("#q" + (i + 1)).attr('id', "q" + i);
-            // reID the following question's remove button
-            $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
-            // relabel the question
-            $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
-            // reset the event listener on the reID'd button
-            $("#btn-rem" + i).unbind();
-            initBtnRem(i);
-            // reset the 
+        // if the removed question isn't the last one, rename everythibg
+        if ((i + 1) !== questionCount) { 
+            for (i = qNum; i < questionCount; i++) {
+                // reID the following question's div
+                $("#q" + (i + 1)).attr('id', "q" + i);
+                // reID the following question's remove button
+                $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
+                // relabel the question
+                $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
+                // reset the event listener on the reID'd remove button
+                $("#btn-rem" + i).unbind();
+                initBtnRem(i);
+                //reID the add following question's add option button if MS or SS
+                //if(noWSType != "FreeResponse") {
+                    // reset the event listener on the reID'd add button
+                    //$("#btn-oAdd" + i).unbind()
+                    //initBtnOAdd(noWSType, i);
+                //}
+                }
         }
         questionCount--;
     });
 }
 
-
+// creates the HTML button
 function btnOAdd(qNum) {
     return '<button type="button" class="btn btn-default" id="btn-oAdd' + qNum + '">Add Option</button>';
 }
 
+// gives each add option button the ability to add an option field to the question
 function initBtnOAdd(noWSType, qNum) {
     $("#btn-oAdd" + qNum).click(function () {
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-             $(this).prev().append(addOption(noWSType, qNum)); 
+             $(this).prev().append(addOption(noWSType)); 
         } 
     });
 }
 
+// creates the HTML input box
 function addOption(noWSType) {
     return '<label class="option">Option'
             + '<input type=text class="form-control" name="questions[][' + noWSType + '"]>'
@@ -139,7 +149,6 @@ function themeSelector() {
             body.style.backgroundColor = "#dadada";
             body.style.color = "black";
             break;
-            
         case "Dark":
             body.style.backgroundColor = "#232323";
             body.style.color = "#777777";

@@ -86,8 +86,6 @@ function initBtnRem (noWSType, qNum) {
     $("#btn-rem" + qNum).click(function () {
         $(this).parent().parent().remove(); 
         // remove and reID the following questions
-        // if the removed question isn't the last one, rename everythibg
-        if ((i + 1) !== questionCount) { 
             for (i = qNum; i < questionCount; i++) {
                 // reID the following question's div
                 $("#q" + (i + 1)).attr('id', "q" + i);
@@ -97,15 +95,16 @@ function initBtnRem (noWSType, qNum) {
                 $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
                 // reset the event listener on the reID'd remove button
                 $("#btn-rem" + i).unbind();
-                initBtnRem(i);
+                initBtnRem(noWSType, i);
                 //reID the add following question's add option button if MS or SS
-                //if(noWSType != "FreeResponse") {
-                    // reset the event listener on the reID'd add button
-                    //$("#btn-oAdd" + i).unbind()
-                    //initBtnOAdd(noWSType, i);
-                //}
+                if(noWSType != "FreeResponse") {
+                    //reset the event listener on the reID'd add button
+                    $("#btn-oAdd" + (i + 1)).attr('id', "btn-oAdd" + i);
+                    $("#btn-oAdd" + i).unbind()
+                    initBtnOAdd(noWSType, i);
                 }
-        }
+            }
+        console.log("out");
         questionCount--;
     });
 }

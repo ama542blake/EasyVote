@@ -60,7 +60,7 @@ function MultipleChoice(qType) {
     this.qTextHTML = function() {
         return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label> Question ' + questionCount + ': ' + qType 
-                        + '<input type="text" class="form-control" name="questions[]">'
+                        + '<input type="text" class="form-control qText" name="questions[]">'
                         + btnRem(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
@@ -86,24 +86,26 @@ function initBtnRem (noWSType, qNum) {
     $("#btn-rem" + qNum).click(function () {
         $(this).parent().parent().remove(); 
         // remove and reID the following questions
-            for (i = qNum; i < questionCount; i++) {
-                // reID the following question's div
-                $("#q" + (i + 1)).attr('id', "q" + i);
-                // reID the following question's remove button
-                $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
-                // relabel the question
-                $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
-                // reset the event listener on the reID'd remove button
-                $("#btn-rem" + i).unbind();
-                initBtnRem(noWSType, i);
-                //reID the add following question's add option button if MS or SS
-                if(noWSType != "FreeResponse") {
-                    //reset the event listener on the reID'd add button
-                    $("#btn-oAdd" + (i + 1)).attr('id', "btn-oAdd" + i);
-                    $("#btn-oAdd" + i).unbind()
-                    initBtnOAdd(noWSType, i);
-                }
-            }
+        for (i = qNum; i < questionCount; i++) {
+            // reID the following question's div
+            $("#q" + (i + 1)).attr('id', "q" + i);
+            // save the text in the question textbox (relabeling the question removes it)
+            var savedText = $("#q" + i + " .qText").val();
+            // relabel the question
+            $("#q" + i).html($("#q" + i).html().replace(/Question [0-9][0-9]*/, "Question " + i));
+            // replace the question text
+            $("#q" + i + " .qText").val(savedText);
+            // reID the following question's remove button
+            $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
+            // reset the event listener on the reID'd remove button
+            $("#btn-rem" + i).unbind();
+            initBtnRem(noWSType, i);
+            //reID the add following question's add option button if MS or SS
+            $("#btn-oAdd" + (i + 1)).attr('id', "btn-oAdd" + i);
+            //reset the event listener on the reID'd add button
+            $("#btn-oAdd" + i).unbind()
+            initBtnOAdd(noWSType, i);
+        }
         console.log("out");
         questionCount--;
     });

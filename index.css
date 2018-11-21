@@ -3,6 +3,10 @@ h1 {
     margin-left: 15px;
 }
 
+h2 {
+    color: white;
+}
+
 h3 {
     margin-left: 15px;
 }
@@ -39,4 +43,3 @@ div[class="radio"] label {
 }
 
 .blackText {color: #000000};
-.whiteText {color: #FFFFFF};

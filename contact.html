@@ -47,50 +47,49 @@
 
 <h1 align="center">We value your feedback!</h1>
 
-<form action="#" method="get" target="_parent" class="whiteText">
-  <fieldset>
-    <legend><span>Feedback:</span></legend>
-    <p>Salutation</p><br>
-    <span class="blackText">
-        <select Greeting="Salutation">
-           <option value="Mr.">Mr</option>
-           <option value="Mrs.">Mrs</option>
-           <option value="Miss">Miss</option>
-           <option value="DR.">DR</option>
-        </select>
-    </span> 
-    <p>Select a date</p><br>
-    <input name="pickeddate" type="date" class="blackText form-control">
-        <p>Subject<br>
-        <input type="checkbox" name="Subject" value="website issue">Website Issue<br>
-        <input type="checkbox" name="Subject" value="personal" checked="checked">Personal<br>
-        <input type="checkbox" name="Subject" value="suggestion" >Suggestion </p>
-        <p>Priority: <br><input type="radio" name="priority" value="normal" checked> Normal<br>
-        <input type="radio" name="priority" value="urgent"> Urgent<br>
-        First name:<br>
-        <input name="firstname" type="text" class="blackText" value="Enter First Name">
-        <br>
-        Last name:<br>
-        <input name="lastname" type="text" class="blackText" value="Enter Last Name">
-        </p>
-        <p>Please enter your email<br>
-      <input
- name="useremail" type="email" class="blackText">
-    </p>
-    <tr>
-  <td>
-      <span class="blackText">
-       <textarea name="comments" cols="80" rows="10" class="blackText">Enter Comments Here </textarea>
-      </span>
-  </td>
-    </tr>
-    <div align="center"><br>
-        <input type="submit" class="blackText" value="Send feedback"> 
-        <input type="reset" class="blackText" value="Start Over"> 
-  </div>
-  </fieldset>
-  
- 
+
+<form action="#" method="get" target="_parent">
+    <legend><h2>Feedback</h2></legend>
+    
+    <div class="form-group">
+        <label>Salutation <br>
+            <select  class="blackText" name="salutation">
+               <option value="Mr.">Mr</option>
+               <option value="Mrs.">Mrs</option>
+               <option value="Miss">Miss</option>
+               <option value="Dr">Dr</option>
+            </select>
+        </label> <br>
+        
+        <label>Subject:<br>
+            <label>Website Issue
+                <input type="checkbox" class="blackText" name="Subject" value="website issue" checked>
+            </label> <br>
+            <label>Personal  
+                <input type="checkbox" class="blackText" name="Subject" value="personal">
+            </label> <br>
+            <label>Suggestion
+                <input type="checkbox" class="blackText" name="Subject" value="suggestion">
+            </label>
+        </label> <br>
+        
+        <label>Name
+            <input name="name" class="form-control" type="text" class="blackText">
+        </label> <br>
+         
+        <label>Email
+            <input class="form-control" name="useremail" type="email" class="blackText">
+        </label> <br>
+        
+        <label>Your feedback <br>
+            <textarea name="comments" cols="80" rows="10" class="blackText" placeholder="Enter your comments here"></textarea>
+        </label> <br>
+        
+        <div align="center"><br>
+            <input type="submit" class="blackText btn btn-default" value="Send feedback"> 
+            <input type="reset" class="blackText btn btn-default" value="Start Over"> 
+      </div>
+    </div>
 </form>
 
 

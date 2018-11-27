@@ -20,7 +20,7 @@ function FreeResponse() {
     this.qTextHTML = function () {
         return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label>Question ' + questionCount + ': Free Response'
-                        + '<input type="text" class="form-control" name="questions[]">'
+                        + '<input type="text" class="form-control" name="questions[][]">'
                         + btnRem(questionCount)
                     +'</label>'
              + '</div>';
@@ -60,14 +60,14 @@ function MultipleChoice(qType) {
     this.qTextHTML = function() {
         return '<div class="form-group" id="q' + questionCount + '">'
                     + '<label> Question ' + questionCount + ': ' + qType 
-                        + '<input type="text" class="form-control qText" name="questions[]">'
+                        + '<input type="text" class="form-control qText" name="questions[][]">'
                         + btnRem(questionCount)
                         + '<div class="form-group input-field option-block">'
                             + '<label class="option">Option'
-                                + '<input type=text class="form-control" name="questions[][options]">'
+                                + '<input type=text class="form-control" name="questions[][]">'
                             + '</label>'
                             + '<label class="option">Option'
-                                + '<input type=text class="form-control" name=questions[][options]>'
+                                + '<input type=text class="form-control" name=questions[][]>'
                             + '</label>'
                          + '</div>'
                          + btnOAdd(questionCount)
@@ -111,7 +111,7 @@ function initBtnRem (noWSType, qNum) {
     });
 }
 
-// creates the HTML button
+// creates the HTML button to add option
 function btnOAdd(qNum) {
     return '<button type="button" class="btn btn-default" id="btn-oAdd' + qNum + '">Add Option</button>';
 }
@@ -122,20 +122,16 @@ function initBtnOAdd(noWSType, qNum) {
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-             $(this).prev().append(addOption(noWSType)); 
+             $(this).prev().append(addOption()); 
         } 
     });
 }
 
 // creates the HTML input box
-function addOption(noWSType) {
+function addOption() {
     return '<label class="option">Option'
-            + '<input type=text class="form-control" name="questions[][' + noWSType + '"]>'
+            + '<input type="text" class="form-control" name="questions[][]">'
          + '</label>';
-}
-
-function oRemBtn(qNum, oNum) {
-    return '<button type="button" class="btn btn-default" id="oRemBtn' + qNum + '_o' + oNum + '">Add Option</button>';
 }
 
 $('input[name="theme"]').click(function () {

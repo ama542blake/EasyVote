@@ -4,9 +4,9 @@ const MAX_OPTIONS = 10;
 // holds the number of questions in the poll
 var questionCount = 0;
 
-$("#fr").click(function() {
+$("#fr").click(function () {
     questionCount++;
-     if (questionCount > MAX_QUESTIONS) {
+    if (questionCount > MAX_QUESTIONS) {
         alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
         questionCount--;
     } else {
@@ -16,19 +16,19 @@ $("#fr").click(function() {
     initBtnRem("FreeResponse", questionCount);
 });
 
-function FreeResponse() {    
+function FreeResponse() {
     this.qTextHTML = function () {
-        return '<div class="form-group" id="q' + questionCount + '">'
-                    + '<label>Question ' + questionCount + ': Free Response'
-                        + '<input type="text" class="form-control" name="questions[][]">'
-                        + btnRem(questionCount)
-                    +'</label>'
-             + '</div>';
+        return '<div class="form-group" id="q' + questionCount + '">' +
+            '<label>Question ' + questionCount + ': Free Response' +
+            '<input type="text" class="form-control" name="questions[FreeResponse][]">' +
+            btnRem(questionCount) +
+            '</label>' +
+            '</div>';
     };
 }
 
 
-$("#ss").click(function() {
+$("#ss").click(function () {
     questionCount++;
     if (questionCount > MAX_QUESTIONS) {
         alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
@@ -36,12 +36,12 @@ $("#ss").click(function() {
     } else {
         var newQuestion = new MultipleChoice("Single Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
-            }
-        initBtnRem('SingleSelection', questionCount);
-        initBtnOAdd('SingleSelection', questionCount);
-        });
+    }
+    initBtnRem('SingleSelection', questionCount);
+    initBtnOAdd('SingleSelection', questionCount);
+});
 
-$("#ms").click(function() {
+$("#ms").click(function () {
     questionCount++;
     if (questionCount > MAX_QUESTIONS) {
         alert("Sorry, you may only add up to " + MAX_QUESTIONS + " per poll.");
@@ -49,30 +49,30 @@ $("#ms").click(function() {
     } else {
         var newQuestion = new MultipleChoice("Multiple Selection");
         $("#qBlock").append(newQuestion.qTextHTML());
-        }
-            initBtnRem('MultipleSelection', questionCount);
-            initBtnOAdd('MultipleSelection', questionCount);
-        });
+    }
+    initBtnRem('MultipleSelection', questionCount);
+    initBtnOAdd('MultipleSelection', questionCount);
+});
 
 function MultipleChoice(qType) {
     // the question type without whitespace; for the option array
     noWSType = qType.replace(' ', '');
-    this.qTextHTML = function() {
-        return '<div class="form-group" id="q' + questionCount + '">'
-                    + '<label> Question ' + questionCount + ': ' + qType 
-                        + '<input type="text" class="form-control qText" name="questions[][]">'
-                        + btnRem(questionCount)
-                        + '<div class="form-group input-field option-block">'
-                            + '<label class="option">Option'
-                                + '<input type=text class="form-control" name="questions[][]">'
-                            + '</label>'
-                            + '<label class="option">Option'
-                                + '<input type=text class="form-control" name=questions[][]>'
-                            + '</label>'
-                         + '</div>'
-                         + btnOAdd(questionCount)
-                    +'</label>'
-             + '</div>';
+    this.qTextHTML = function () {
+        return '<div class="form-group" id="q' + questionCount + '">' +
+            '<label> Question ' + questionCount + ': ' + qType +
+            '<input type="text" class="form-control qText" name="questions[' + noWSType + '][]">' +
+            btnRem(questionCount) +
+            '<div class="form-group input-field option-block">' +
+            '<label class="option">Option' +
+            '<input type=text class="form-control" name="questions[' + noWSType + '][]">' +
+            '</label>' +
+            '<label class="option">Option' +
+            '<input type=text class="form-control" name=questions[' + noWSType + '][]>' +
+            '</label>' +
+            '</div>' +
+            btnOAdd(questionCount) +
+            '</label>' +
+            '</div>';
     };
 }
 
@@ -82,9 +82,9 @@ function btnRem(qNum) {
 }
 
 // event hander for the btn-rem
-function initBtnRem (noWSType, qNum) {
+function initBtnRem(noWSType, qNum) {
     $("#btn-rem" + qNum).click(function () {
-        $(this).parent().parent().remove(); 
+        $(this).parent().parent().remove();
         // remove and reID the following questions
         for (i = qNum; i < questionCount; i++) {
             // reID the following question's div
@@ -96,7 +96,7 @@ function initBtnRem (noWSType, qNum) {
             // replace the question text
             $("#q" + i + " .qText").val(savedText);
             // reID the following question's remove button
-            $("#btn-rem" + (i + 1)).attr('id',"btn-rem" + i);
+            $("#btn-rem" + (i + 1)).attr('id', "btn-rem" + i);
             // reset the event listener on the reID'd remove button
             $("#btn-rem" + i).unbind();
             initBtnRem(noWSType, i);
@@ -106,7 +106,6 @@ function initBtnRem (noWSType, qNum) {
             $("#btn-oAdd" + i).unbind()
             initBtnOAdd(noWSType, i);
         }
-        console.log("out");
         questionCount--;
     });
 }
@@ -122,20 +121,20 @@ function initBtnOAdd(noWSType, qNum) {
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-             $(this).prev().append(addOption()); 
-        } 
+            $(this).prev().append(addOption(noWSType));
+        }
     });
 }
 
 // creates the HTML input box
-function addOption() {
-    return '<label class="option">Option'
-            + '<input type="text" class="form-control" name="questions[][]">'
-         + '</label>';
+function addOption(noWSType) {
+    return '<label class="option">Option' +
+        '<input type="text" class="form-control" name="questions[' + noWSType + '][]">' +
+        '</label>';
 }
 
 $('input[name="theme"]').click(function () {
-  themeSelector();
+    themeSelector();
 });
 
 function themeSelector() {

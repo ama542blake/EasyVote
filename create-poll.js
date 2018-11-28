@@ -20,7 +20,7 @@ function FreeResponse() {
     this.qTextHTML = function () {
         return '<div class="form-group" id="q' + questionCount + '">' +
             '<label>Question ' + questionCount + ': Free Response' +
-            '<input type="text" class="form-control" name="questions[FreeResponse][]">' +
+            '<input type="text" class="form-control" name="questions[][FreeResponse]">' +
             btnRem(questionCount) +
             '</label>' +
             '</div>';
@@ -38,7 +38,7 @@ $("#ss").click(function () {
         $("#qBlock").append(newQuestion.qTextHTML());
     }
     initBtnRem('SingleSelection', questionCount);
-    initBtnOAdd('SingleSelection', questionCount);
+    initBtnOAdd(questionCount);
 });
 
 $("#ms").click(function () {
@@ -51,7 +51,7 @@ $("#ms").click(function () {
         $("#qBlock").append(newQuestion.qTextHTML());
     }
     initBtnRem('MultipleSelection', questionCount);
-    initBtnOAdd('MultipleSelection', questionCount);
+    initBtnOAdd(questionCount);
 });
 
 function MultipleChoice(qType) {
@@ -60,14 +60,14 @@ function MultipleChoice(qType) {
     this.qTextHTML = function () {
         return '<div class="form-group" id="q' + questionCount + '">' +
             '<label> Question ' + questionCount + ': ' + qType +
-            '<input type="text" class="form-control qText" name="questions[' + noWSType + '][]">' +
+            '<input type="text" class="form-control qText" name="questions[][' + noWSType + ']">' +
             btnRem(questionCount) +
             '<div class="form-group input-field option-block">' +
             '<label class="option">Option' +
-            '<input type=text class="form-control" name="questions[' + noWSType + '][]">' +
+            '<input type=text class="form-control" name="options[' + questionCount + '][]">' +
             '</label>' +
             '<label class="option">Option' +
-            '<input type=text class="form-control" name=questions[' + noWSType + '][]>' +
+            '<input type=text class="form-control" name="options[' + questionCount + '][]">' +
             '</label>' +
             '</div>' +
             btnOAdd(questionCount) +
@@ -104,7 +104,7 @@ function initBtnRem(noWSType, qNum) {
             $("#btn-oAdd" + (i + 1)).attr('id', "btn-oAdd" + i);
             //reset the event listener on the reID'd add button
             $("#btn-oAdd" + i).unbind()
-            initBtnOAdd(noWSType, i);
+            initBtnOAdd(i);
         }
         questionCount--;
     });
@@ -116,20 +116,20 @@ function btnOAdd(qNum) {
 }
 
 // gives each add option button the ability to add an option field to the question
-function initBtnOAdd(noWSType, qNum) {
+function initBtnOAdd(qNum) {
     $("#btn-oAdd" + qNum).click(function () {
         if (($(this).prev().children().length) >= MAX_OPTIONS) {
             alert("Sorry, you may only have " + MAX_OPTIONS + " options per question.")
         } else {
-            $(this).prev().append(addOption(noWSType));
+            $(this).prev().append(addOption(qNum));
         }
     });
 }
 
 // creates the HTML input box
-function addOption(noWSType) {
+function addOption(qNum) {
     return '<label class="option">Option' +
-        '<input type="text" class="form-control" name="questions[' + noWSType + '][]">' +
+        '<input type=text class="form-control" name="options[' + qNum + '][]">' +
         '</label>';
 }
 

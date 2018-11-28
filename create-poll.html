@@ -45,7 +45,7 @@
 
     <form action="/php/create-poll.php" method="post">
         <label>Give your poll a name!
-            <input type="text" name="poll-name">
+            <input type="text" name="poll-name" class="form-control">
         </label>
         
         <div id="qBlock">
@@ -62,11 +62,11 @@
         <div>
             <h4>Select a theme for your survey:</h4>
             <div class="radio">
-                <label><input type="radio" name="theme" value="default" checked>Default</label>
-                <label><input type="radio" name="theme" value="light">Light</label>
-                <label><input type="radio" name="theme" value="dark">Dark</label>
-                <label><input type="radio" name="theme" value="forest">Forest</label>
-                <label><input type="radio" name="theme" value="seaside">Seaside</label>
+                <label><input type="radio" name="theme" value="Default" checked>Default</label>
+                <label><input type="radio" name="theme" value="Light">Light</label>
+                <label><input type="radio" name="theme" value="Dark">Dark</label>
+                <label><input type="radio" name="theme" value="Forest">Forest</label>
+                <label><input type="radio" name="theme" value="Seaside">Seaside</label>
             </div>
         </div>
 
@@ -75,7 +75,7 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="create-poll.js"></script> <!-- different on GCloud src="/js/create-poll.js"-->
+    <script src="/js/create-poll.js"></script> <!-- different on GCloud src="/js/create-poll.js"-->
 </body>
 
 </html>

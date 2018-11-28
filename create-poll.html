@@ -44,6 +44,10 @@
     </header>
 
     <form action="/php/create-poll.php" method="post">
+        <label>Give your poll a name!
+            <input type="text" name="poll-name">
+        </label>
+        
         <div id="qBlock">
         </div>
 
@@ -58,11 +62,11 @@
         <div>
             <h4>Select a theme for your survey:</h4>
             <div class="radio">
-                <label><input type="radio" name="theme" value="Default" checked>Default</label>
-                <label><input type="radio" name="theme" value="Light">Light</label>
-                <label><input type="radio" name="theme" value="Dark">Dark</label>
-                <label><input type="radio" name="theme" value="Forest">Forest</label>
-                <label><input type="radio" name="theme" value="Seaside">Seaside</label>
+                <label><input type="radio" name="theme" value="default" checked>Default</label>
+                <label><input type="radio" name="theme" value="light">Light</label>
+                <label><input type="radio" name="theme" value="dark">Dark</label>
+                <label><input type="radio" name="theme" value="forest">Forest</label>
+                <label><input type="radio" name="theme" value="seaside">Seaside</label>
             </div>
         </div>
 

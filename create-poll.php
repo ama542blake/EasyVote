@@ -26,7 +26,7 @@
         /* end collect form data */
             
         /* insert poll into DB */
-        $insertPoll = "INSERT INTO polls (name, theme) VALUES ('{$pollName}', '{$theme}')";
+        $insertPoll = "INSERT INTO surveys (survey_name, survey_theme) VALUES ('{$pollName}', '{$theme}')";
         if ($conn->query($insertPoll) === TRUE) {
             global $pollID;
             echo "<br>Poll successfully inserted into DB!";
@@ -44,13 +44,13 @@
         foreach ($questionsArr as $index => $questions) {
             ++$qNum;
             foreach ($questions as $type => $qText) {
-                $insertQuestion = "INSERT INTO questions (parent_survey_id, text, type) VALUES ('{$pollID}', '{$qText}', '{$type}')";
+                $insertQuestion = "INSERT INTO questions (survey_uid, question_text, question_type) VALUES ('{$pollID}', '{$qText}', '{$type}')";
                 $conn->query($insertQuestion);
                 $qID = $conn->insert_id;
                 // insert options
                 $i = 0;
                 while (isset($optionsArr[$qNum][$i])){
-                    $insertOption = "INSERT INTO options (text, parent_question_id) VALUES ('{$optionsArr[$qNum][$i]}', '{$qID}')";
+                    $insertOption = "INSERT INTO options (option_text, parent_question_uid) VALUES ('{$optionsArr[$qNum][$i]}', '{$qID}')";
                     $conn->query($insertOption);
                     ++$i;
                 }
@@ -59,18 +59,7 @@
         /* end insert questions and options*/
         
     } // end inertions
-
-/* QUERIES:
-    $insertPoll = "INSERT INTO polls (name, theme) VALUES ('{$pollName}', '{$theme}')";
-    $conn->query($insertPoll);
-    $insertQuestion = "INSERT INTO questions (parent_survey_id, text, type) VALUES ('{$surveyID}', '{$questionPrompt}', '{$key}')";
-    $conn->query($insertQuestion);
-    $insertOption = "INSERT INTO options (text, parent_question_id) VALUES ('{$option}', '{$questionID}')";
-    $conn->query($insertOption);
-*/
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -102,7 +91,7 @@
                     <a href="..index.html" class="navbar-brand"><img src="Images/Logo.png" width="55" height="30"></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href=.."about.html">About</a></li>
+                    <li><a href="..about.php">About</a></li>
                     <li><a href="..contact.html">Contact</a></li>
                 </ul>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -110,7 +99,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../signup.html">Sign Up</a></li>
                         <li><a href="../login.html">Log In</a></li>
-                        <li><a href="../display-polls.html">View Polls</a></li>
+                        <li><a href="../view-polls.php">View Polls</a></li>
                         <li><a href="#">Create Poll</a></li>
                     </ul>
                 </div>
@@ -150,7 +139,7 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="../js/create-poll.js"></script>
+    <script src="/js/create-poll.js"></script>
 </body>
 
 </html>
